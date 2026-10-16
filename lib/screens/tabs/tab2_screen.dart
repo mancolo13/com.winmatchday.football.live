@@ -19,14 +19,17 @@ class _Tab2ScreenState extends State<Tab2Screen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _chip('Live Score', 0),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            child: Row(
+              children: [
+                _chip('Live Score', 0),
               _chip('Upcoming', 1),
               _chip('Finished', 2),
               _chip('Top Leagues', 3),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 16),
           ...List.generate(5, (i) => Container(
@@ -47,7 +50,7 @@ class _Tab2ScreenState extends State<Tab2Screen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(const ['Real Madrid vs Man City', 'Barcelona vs Bayern', 'Liverpool vs Arsenal', 'Juventus vs Inter', 'Dortmund vs Leverkusen'][i % 5], style: const TextStyle(fontWeight: FontWeight.bold)),
+                      Text(const ['Real Madrid vs Man City', 'Barcelona vs Bayern', 'Liverpool vs Arsenal', 'Juventus vs Inter', 'Dortmund vs Leverkusen'][i % 5], style: const TextStyle(fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
                       Text('Stage ${i + 1} • Verified status', style: const TextStyle(fontSize: 12, color: Colors.white60)),
                     ],
                   ),
@@ -70,6 +73,7 @@ class _Tab2ScreenState extends State<Tab2Screen> {
     return GestureDetector(
       onTap: () => setState(() => _idx = i),
       child: Container(
+        margin: const EdgeInsets.only(right: 8),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
           color: a ? AppTheme.primaryColor : Colors.white10,
